@@ -1,0 +1,15 @@
+version: '3'  # version of compose format 
+  
+services:
+  social-sentiment:
+    build: ./flask_service
+    volumes:
+      - ./flask_service:/usr/src/app
+    ports:
+      - 5000:80  # host:container
+    links:
+      - db
+    command: python -u app.py
+
+  db:
+    image: mongo:3.0.2

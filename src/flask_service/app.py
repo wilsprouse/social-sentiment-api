@@ -5,6 +5,7 @@ from flask_restful import Resource, Api
 import os
 import sys
 import subprocess
+import get_sentiment as gs
 #from pymongo import MongoClient
 #from bson.json_util import loads, dumps
 #import json
@@ -27,9 +28,16 @@ class home(Resource):
 
 class get_sentiment(Resource):
     def get(self):
-        subprocess.run(["gcc", "get_sentiment.cpp", "-lstdc++", "-lcurl"], cwd='./backend_data')
+        #g++ main.cpp -lcurlpp -lcurl -g -pg `xml2-config --cflags --libs` `pkg-config libxml++-2.6 --cflags --libs` --std=c++0x
+        #subprocess.run(["gcc", "get_sentiment.cpp", "-lstdc++", "-lcurl"], cwd='./backend_data')
+        #subprocess.run(["g++", "v_2get_sentiment.cpp", "-lcurlpp", "-lcurl", "-g", "-pg", "`xml2-config --cflags --libs`", "`pkg-config libxml++-2.6 --cflags --libs`",
+        #                "--std=c++0x"], cwd='./backend_data')
+
         args = request.args
-        return { args['ticker'] : subprocess.check_output("./a.out " + args['ticker'], shell=True, cwd='./backend_data').decode('UTF-8')[:-1] } 
+
+        sentiment = gs.Request(args['ticker'])
+
+        return { args['ticker'] : str(sentiment.make_request()) } 
 
 
 

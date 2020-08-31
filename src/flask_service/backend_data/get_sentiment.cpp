@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <curl/curl.h>
+#include <tidy/tidyx.h>
 using namespace std;
 
 

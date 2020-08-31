@@ -35,9 +35,9 @@ class get_sentiment(Resource):
 
         args = request.args
 
-        sentiment = gs.Request(args['ticker'])
+        sentiment = gs.Request(args['ticker'], args['company'])
 
-        return { args['ticker'] : str(sentiment.make_request()) } 
+        return { args['ticker'] : str(sentiment.Request_main()) } 
 
 
 
